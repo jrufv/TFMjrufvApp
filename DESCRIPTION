@@ -1,0 +1,32 @@
+Package: TFMjrufvApp
+Title: Framework para el análisis de datos ómicos
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jordi",
+           family = "Ruf",
+           role = c("aut", "cre"),
+           email = "jordiruf@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: La presenta aplicación permite realizar un análisis estadístico de datos
+    ómicos, desde la carga de datos, pasando por el preprocesamiento y la normalización,
+    la implementación de análisis estadísticos, la anotación de los resultados y el análsis
+    de significación biológica.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    Biobase,
+    BiocManager,
+    bslib,
+    dplyr,
+    DT,
+    grDevices,
+    MSnbase,
+    htmltools,
+    shiny,
+    TFMjrufv,
+    SummarizedExperiment
