@@ -27,11 +27,5 @@ Puede acceder a la aplicación web con el siguiente código:
 ``` r
 library(TFMjrufvApp)
 devtools::load_all()
-#> ℹ Loading TFMjrufvApp
-```
-
-y a continuación ejecutar la aplicación:
-
-``` r
 TFMjrufvApp()
 ```
