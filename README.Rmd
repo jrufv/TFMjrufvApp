@@ -1,0 +1,40 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# TFMjrufvApp
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+La presenta aplicación permite realizar un análisis estadístico de datos ómicos, desde la carga de datos, pasando por el preprocesamiento y la normalización, la implementación de análisis estadísticos, la anotación de los resultados y el análisis de significación biológica.
+    
+## Instalación
+
+Puede instalar la versión en desarrollo desde GitHub con:
+
+``` r
+library(devtools)
+devtools::install_github("jrufv/TFMjrufv")
+```
+
+## Ejemplo
+
+Puede acceder a la aplicación web con el siguiente código:
+
+```{r example}
+library(TFMjrufvApp)
+devtools::load_all()
+TFMjrufvApp()
+```
