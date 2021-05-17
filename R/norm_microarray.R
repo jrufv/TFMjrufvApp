@@ -31,7 +31,7 @@ norm_microarrayUI <- function(id) {
         tabPanel(
           "Info",
           icon = icon("info"),
-          strong(h3("Normalización de datos de Microarray", align = "center")),
+          strong(h3("NORMALIZACIÓN DE DATOS DE MICROARRAY", align = "center")),
           br(),
           h5("En esta sección se normalizaran los datos cargados. Además tiene la opción
             de filtrar los datos según dos parámetros: según la varianza de los datos, o
@@ -41,10 +41,10 @@ norm_microarrayUI <- function(id) {
             de anotaciones en la",
              a("web de Bioconductor.",
                href = "https://www.bioconductor.org/packages/release/BiocViews.html#___AnnotationData")),
-          h5("Una vez haya seleccionado los parámetros correspondientes clique en 'SUBMIT'
-            para realizar el procesamiento de los datos."),
+          h5("Una vez haya seleccionado los parámetros correspondientes presione ACEPTAR
+             para realizar el procesamiento de los datos."),
           h5("En las pestañas contiguas podrá ver la tabla con los datos procesados, un
-            resumen estadísitco de los mismos y diferentes gráficos"),
+             resumen estadísitco de los mismos y diferentes gráficos"),
           br(),
           h3(div(textOutput(NS(id, "success")), align = "center", style = "color:green"))
         ),
@@ -286,6 +286,9 @@ norm_microarrayServer <- function(id, data) {
       }
     )
     
-    norm_data
+    list(
+      data = norm_data,
+      pack = reactive(input$annot_pack)
+    )
   })
 }
