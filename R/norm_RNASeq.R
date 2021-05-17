@@ -24,15 +24,15 @@ norm_RNASeqUI <- function(id) {
         tabPanel(
           "Info",
           icon = icon("info"),
-          strong(h3("Normalización de datos de RNA-Seq", align = "center")),
+          strong(h3("NORMALIZACIÓN DE DATOS DE RNA-SEQ", align = "center")),
           br(),
           h5("En esta sección se normalizaran los datos cargados. Además tiene la opción
             de filtrar los datos para eliminar filas en las que la mitad de las muestras
             tengan un recuento por millón menor a 1."),
-          h5("Una vez haya seleccionado los parámetros correspondientes clique en 'SUBMIT'
-            para realizar el procesamiento de los datos."),
+          h5("Una vez haya seleccionado los parámetros correspondientes presione ACEPTAR
+             para realizar el procesamiento de los datos."),
           h5("En las pestañas contiguas podrá ver la tabla con los datos procesados, un
-            resumen estadísitco de los mismos y diferentes gráficos"),
+             resumen estadísitco de los mismos y diferentes gráficos"),
           br(),
           h3(div(textOutput(NS(id, "success")), align = "center", style = "color:green"))
         ),
