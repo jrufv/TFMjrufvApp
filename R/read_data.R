@@ -49,28 +49,10 @@ read_dataUI <- function(id) {
           icon = icon("info"),
           strong(h3("CARGA DE DATOS", align = "center")),
           br(),
-          h5("Esta aplicación le permitirá realizar diferentes tipos de análisis
-            estadístico a partir de datos ómicos. Comencemos:"),
-          h5("En primer lugar debe seleccionar el tipo de datos de su estudio, y en
-            función de este deberá seleccionar otros parámetros. Si algun parámetro no es
-            necesario aparecerá la etiqueta 'needless'"),
           h5("Deberá cargar dos tipos de archivos:"),
-          h5("1. Datos brutos: son los datos para cada muestra del estudio, es decir,
-            archivos .CEL para microarrays, archivos con espectros brutos de GC/LC-MS (se
-            aceptan diferentes tipos de archivos, ver opciones en el desplegable), o
-            archivos .csv con 'counts table' para RNA-Seq, listas de picos de MS o
-            concentraciones de metabolitos."), 
-          h5("2. Datos de muestras: son los datos identificativos de cada muestra
-            almacenados en un archivo .csv con cabecera. Para  los tipos de datos
-            'microarray' o 'MetabRS' debe tener tres columnas como mínimo, la primera con
-            el nombre de los archivos que contienen los datos de cada muestra, la segunda
-            con un identificador único de las muestras y la tercera con el grupo
-            experimental de las muestras. Para el resto debe tener dos columnas como
-            mínimo, la primera con el identificador de las muestras y la segunda con el
-            grupo experimental de las muestras. En ambos casos se aceptan más columnas
-            como covariables."),
+          h5(textOutput(NS(id, "instrucciones"))),
           h5("Una vez haya cargado todos los datos y seleccionado los parámetros
-            correspondientes clique en 'SUBMIT' para realizar la lectura de datos."),
+            correspondientes presione ACEPTAR para realizar la lectura de datos."),
           h5("En las pestañas contiguas podrá ver las tablas con los datos, un resumen
             estadísitco de los mismos y diferentes gráficos"),
           br(),
@@ -179,8 +161,87 @@ read_dataServer <- function(id, data_type) {
     
     options(shiny.maxRequestSize = 20 * 1024 ^ 2)
     
+    inst_microarray <- reactive({
+      "Los 'DATOS BRUTOS' se refieren a los archivos .CEL que contienen los datos de cada
+      muestra. En este caso no es necesario especificar un 'separador', y la 'Extensión
+      de archivo' está predeterminada. Los 'DATOS DE MUESTRAS' se refieren a los datos
+      identificativos de cada muestra almacenados en un archivo .csv con cabecera, que
+      deberá tener tres columnas como mínimo: la primera con el nombre de los archivos
+      .CEL, la segunda con un identificador único para cada muestra y la tercera con el
+      grupo experimental de las muestras. Además se aceptan más columnas para covariables
+      adicionales. Finalmente debe seleccionar el 'separador' de columna de su archivo
+      .csv. Para este tipo de datos el parámetro 'MODE' no es necesario."
+    })
+    inst_RNASeq <- eventReactive(data_type(), {
+      "Los 'DATOS BRUTOS' se refieren a un archivo .csv que contenga la 'counts table'.
+      Este archivo debe tener cabecera, cada fila debe corresponder a un gen y cada
+      columna a una muestra. Debe seleccionar el 'separador' de columna del archivo .csv.
+      En este caso la 'Extensión de archivo' está predeterminada. Los 'DATOS DE MUESTRAS'
+      se refieren a los datos identificativos de cada muestra almacenados en un archivo
+      .csv con cabecera, que deberá tener dos columnas como mínimo, la primera con un
+      identificador único para cada muestra y la segunda con el grupo experimental de las
+      muestras. Además se aceptan más columnas para covariables adicionales. Finalmente
+      debe seleccionar el 'separador' de columna de su archivo .csv. Para este tipo de
+      datos el parámetro 'MODE' no es necesario."
+    })
+    inst_MetabRS <- eventReactive(data_type(), {
+      "Los 'DATOS BRUTOS' se refieren a los archivos que contienen los datos de cada
+      muestra. En este caso se aceptan diferentes 'Extensiones de archivos', como puede
+      comprobar en el desplegable correspondiente, donde deberá especificar el que
+      corresponda. En todos los casos cada archivo debe contener los datos de una muestra.
+      En este caso no es necesario especificar un 'separador'. Los 'DATOS DE MUESTRAS' se
+      refieren a los datos identificativos de cada muestra almacenados en un archivo .csv
+      con cabecera, que deberá tener tres columnas como mínimo: la primera con el nombre
+      de los archivos de muestras, la segunda con un identificador único para cada muestra
+      y la tercera con el grupo experimental de las muestras. Además se aceptan más
+      columnas para covariables adicionales. A continuación debe seleccionar el
+      'separador' de columna de su archivo .csv. Finalmente deberá especificar en el
+      desplegable 'MODE' si desea cargar los datos sin porocesar en la memoria (inMemory)
+      o generar un objeto con los datos y sólo acceder a ellos cuando sea necesario
+      (onDisk). Para una mayor fluidez del análisis se recomienda seleccionar 'onDisk'."
+    })
+    inst_MetabSB <- eventReactive(data_type(), {
+      "Los 'DATOS BRUTOS' se refieren a un archivo .csv que contenga las intensidades de
+      señal para cada contenedor de espectro. Este archivo debe tener cabecera, cada fila
+      debe corresponder a un contenedor y cada columna a una muestra. Debe seleccionar el
+      'separador' de columna del archivo .csv. En este caso la 'Extensión de archivo'
+      está predeterminada. Los 'DATOS DE MUESTRAS' se refieren a los datos
+      identificativos de cada muestra almacenados en un archivo .csv con cabecera, que
+      deberá tener dos columnas como mínimo, la primera con un identificador único para 
+      cada muestra y la segunda con el grupo experimental de las muestras. Además se
+      aceptan más columnas para covariables adicionales. Finalmente debe seleccionar el
+      'separador' de columna de su archivo .csv. Para este tipo de datos el parámetro 'MODE'
+      no es necesario."
+    })
+    inst_MetabMC <- eventReactive(data_type(), {
+      "Los 'DATOS BRUTOS' se refieren a un archivo .csv que contenga las concentraciones
+      de metabolitos. Este archivo debe tener cabecera, cada fila debe corresponder a un
+      metabolito y cada columna a una muestra. Debe seleccionar el 'separador' de columna
+      del archivo .csv. En este caso la 'Extensión de archivo' está predeterminada. Los
+      'DATOS DE MUESTRAS' se refieren a los datos identificativos de cada muestra
+      almacenados en un archivo .csv con cabecera, que deberá tener dos columnas como
+      mínimo, la primera con un identificador único para cada muestra y la segunda con el
+      grupo experimental de las muestras. Además se aceptan más columnas para covariables
+      adicionales. Finalmente debe seleccionar el 'separador' de columna de su archivo
+      .csv. Para este tipo de datos el parámetro 'MODE' no es necesario."
+    })
+    
+    output$instrucciones <- renderText({
+      if(data_type() == "microarray") {
+        inst_microarray()
+      } else if(data_type() == "RNA-Seq") {
+        inst_RNASeq()
+      } else if(data_type() == "MetabRS") {
+        inst_MetabRS()
+      } else if(data_type() == "MetabSB") {
+        inst_MetabSB()
+      } else if(data_type() == "MetabMC") {
+        inst_MetabMC()
+      } 
+    })
+    
     datatype <- reactive({
-      dplyr::filter(confi, confi$TYPE == data_type())
+      dplyr::filter(sysdata$confi, sysdata$confi$TYPE == data_type())
     })
     observeEvent(datatype(), {
       choices <- unique(datatype()$SEPrd)
