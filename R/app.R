@@ -30,25 +30,42 @@ TFMjrufvApp <- function() {
         icon = icon("home"),
         sidebarLayout(
           sidebarPanel(width = 2,
-                       selectInput("data_type",
-                                   h6("TIPO DE DATOS"),
-                                   choices = base::unique(confi$TYPE),
-                                   selected = "CHOOSE"
-                       ),
-                       actionButton("accept",
-                                    "Aceptar",
-                                    class = "btn-sm btn-block btn-success"
-                       )
+            selectInput("data_type",
+                        h6("TIPO DE DATOS"),
+                        choices = base::unique(sysdata$confi$TYPE),
+                        selected = "CHOOSE"
+            ),
+            actionButton("accept",
+                         "Aceptar",
+                         class = "btn-sm btn-block btn-success"
+            )
           ),
           mainPanel(
             strong(h3("BIENVENIDO A LA APP", align = "center")),
             br(),
-            p("Instrucciones..."),
-            br(),
-            textOutput("instrucciones"),
+            h5("Esta aplicación le permitirá realizar un análisis de expresión
+               diferenical a partir de diferentes tipos de datos ómicos."),
+            h5("Puede escoger entre datos de Microarray, de RNA-Seq o diferentes tipos de
+               datos metabolómicos, como son espectros brutos de GC/LC-MS (MetabRS),
+               contenedores de espectros de MS (MetabSB), o concentraciones de
+               metabolitos (MetabMC)."),
+            h5("Para el ańalisis de Microarrays puede utilizar los datos almacenados en
+               diferentes archivos .CEL que correspondan a cada una de las muestras."),
+            h5("Para el análisis de espectros brutos puede utilizar los datos almacenados
+               en diferentes archivos que correspondan a cada una de las muestras. Las
+               extensiones de archivos aceptadas son .NetCDF, .mzML, .mzXML y .mzData."),
+            h5("Para el resto de análisis puede utilizar los datos almacenados en un
+               archivo .csv."),
+            strong(h4("Para iniciar el análisis seleccione el TIPO DE DATOS a analizar y
+                      presione el boton ACEPTAR", align = "center")),
             br(),
             h3(div(textOutput("error"), align = "center", style = "color:red")),
             h3(div(textOutput("success"), align = "center", style = "color:green")),
+            br(),
+            h5("Una vez haya confirmado la selección puede acceder a la siguiente pestaña
+               para realizar la carga de datos."),
+            h5("Deberá presionar el botón ACEPTAR en cada una de las pestañas para poder
+               continuar avanzando por las diferentes pestañas.")
           )
         )
       ),
@@ -85,27 +102,16 @@ TFMjrufvApp <- function() {
       ),
       
       tabPanel(
-        h4("ANOTACIÓN"),
-        icon = icon("pencil-alt")
+        h4("EXPRESIÓN DIFERENICAL"),
+        icon = icon("calculator"),
+        deaUI("mod3")
       ),
       
-      navbarMenu(
-        h4("ANÁLISIS ESTADÍSTICO"),
-        icon = icon("calculator"),
-        tabPanel(
-          h5("Análisis de Expresión Diferencial")
-        ),
-        tabPanel(
-          h5("Clasificación")
-        ),
-        tabPanel(
-          h5("Clustering")
-        ),
-        tabPanel(
-          h5("Selección de características")
-        )
-      ),
-      tabPanel("Prueba", verbatimTextOutput("prueba"))
+      tabPanel(
+        h4("SIGNIFICACIÓN BIOLÓGICA"),
+        icon = icon("microscope"),
+        bsaUI("mod4")
+      )
     )
   )
   
@@ -113,38 +119,6 @@ TFMjrufvApp <- function() {
     
     reactive({
       TFMjrufv::ins_pack()
-    })
-    
-    inst_microarray <- eventReactive(input$data_type, {
-      "inst_microarray"
-    })
-    inst_RNASeq <- eventReactive(input$data_type, {
-      "inst_RNASeq"
-    })
-    inst_MetabRS <- eventReactive(input$data_type, {
-      "inst_MetabRS"
-    })
-    inst_MetabSB <- eventReactive(input$data_type, {
-      "inst_MetabSB"
-    })
-    inst_MetabMC <- eventReactive(input$data_type, {
-      "inst_MetabMC"
-    })
-    
-    output$instrucciones <- renderText({
-      if(input$data_type == "microarray") {
-        inst_microarray()
-      } else if(input$data_type == "RNA-Seq") {
-        inst_RNASeq()
-      } else if(input$data_type == "MetabRS") {
-        inst_MetabRS()
-      } else if(input$data_type == "MetabSB") {
-        inst_MetabSB()
-      } else if(input$data_type == "MetabMC") {
-        inst_MetabMC()
-      } else if(input$data_type == "CHOOSE") {
-        "Seleccione el tipo de datos"
-      }
     })
     
     error <- eventReactive(input$accept, {
@@ -166,10 +140,6 @@ TFMjrufvApp <- function() {
       message()      
     })
     
-    output$prueba <- renderPrint({
-      norm_data()
-    })
-    
     read_dataServer("mod1", reactive(input$data_type))
     
     data <- read_dataServer("mod1", reactive(input$data_type))
@@ -180,7 +150,7 @@ TFMjrufvApp <- function() {
     norm_MetabSBServer("mod2d", data)
     norm_MetabMCServer("mod2e", data)
     
-    norm_data_microarray <- norm_microarrayServer("mod2a", data)
+    norm_microarray <- norm_microarrayServer("mod2a", data)
     norm_data_RNASeq <- norm_RNASeqServer("mod2b", data)
     norm_data_MetabRS <- norm_MetabRSServer("mod2c", data)
     norm_data_MetabSB <- norm_MetabSBServer("mod2d", data)
@@ -188,18 +158,24 @@ TFMjrufvApp <- function() {
     
     norm_data <- reactive({
       if(input$data_type == "microarray") {
-        norm_data_microarray()
+        norm_microarray$data()
       } else if(input$data_type == "RNA-Seq") {
         norm_data_RNASeq()
-      } else if(input$data_type == "MetabRA") {
+      } else if(input$data_type == "MetabRS") {
+        norm_data_MetabRS()
+      } else if(input$data_type == "MetabSB") {
         norm_data_MetabSB()
+      } else if(input$data_type == "MetabMC") {
+        norm_data_MetabMC()
       }
     })
     
-    output$prueba <- renderText({
-      confi
-    })
+    deaServer("mod3", norm_data, reactive(input$data_type), norm_microarray$pack)
     
+    dea <- deaServer("mod3", norm_data, reactive(input$data_type), norm_microarray$pack)
+    
+    bsaServer("mod4", reactive(input$data_type), dea$data, dea$org, dea$pvalcoff,
+              dea$adjmethod, dea$struct)
   }
 
   shinyApp(ui, server) 
