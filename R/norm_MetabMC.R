@@ -57,6 +57,23 @@ norm_MetabMCUI <- function(id) {
           "Info",
           icon = icon("info"),
           p("Instrucciones de uso"),
+          strong(h3("NORMALIZACIÓN DE DATOS DE CONCENTRACIONES DE METABOLITOS",
+                    align = "center")),
+          br(),
+          h5("En esta sección podrá normalizar los datos cargados."),
+          h5("La NORMALIZACIÓN presenta diferentes opciones:"),
+          h5("1. 'Valores perdidos': puede 'Imputar' los valores perdidos seleccionando
+             la casilla. Además deberá seleccionar un 'Valor de corte' que indica el
+             porcentaje de valores perdidos permitido en cada grupo, y el 'Método' de
+             imputación"),
+          h5("2. 'Normalización': debe seleccionar un 'Método' de normalización."),
+          h5("3. 'Outliers': puede 'Eliminar' los datos extremos seleccionando la
+             casilla. Además deberá seleccionar un 'Método' de detección y el tipo
+             de medida de la 'Distancia'."),
+          h5("Una vez haya seleccionado los parámetros correspondientes presione ACEPTAR
+             para realizar el procesamiento de los datos."),
+          h5("En las pestañas contiguas podrá ver la tabla con los datos procesados, un
+             resumen estadísitco de los mismos y diferentes gráficos"),
           h3(div(textOutput(NS(id, "success")), align = "center", style = "color:green"))
         ),
         tabPanel(
