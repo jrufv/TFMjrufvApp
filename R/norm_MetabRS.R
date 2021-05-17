@@ -98,7 +98,73 @@ norm_MetabRSUI <- function(id) {
         tabPanel(
           "Info",
           icon = icon("info"),
-          p("Instrucciones de uso"),
+          strong(h3("PREPROCESAMIENTO Y NORMALIZACIÓN DE DATOS DE ESPECTROS BRUTOS DE
+                    GC/LC-MS", align = "center")),
+          br(),
+          h5("En esta sección podrá preprocesar y normalizar los datos cargados."),
+          h5("El PREPROCESAMIENTO tiene diferentes opciones:"),
+          h5("1. 'Detección de picos': deberá seleccionar un 'Método' de entre los
+             siguientes:"),
+          h5("1.1. El algoritmo 'Cent Wave' realiza la detección de picos cromatográficos
+             basada en la densidad de picos y ondículas para datos LC/MS de alta
+             resolución en modo centroide"),
+          h5("1.2. El algoritmo 'Cent Wave de dos pasos' realiza una detección de picos
+             cromatográfica basada en Cent Wave en dos pasos: en una primera ejecución de
+             Cent Wave, se identifican los picos para los que luego se predice la
+             ubicación de sus isótopos potenciales en el tiempo de retención de mz.
+             A continuación, se realiza una segunda ejecución de Cent Wave en estas
+             regiones de interés (ROI). La lista final de picos cromatográficos comprende
+             todos los picos que no se superponen de ambos ciclos de Cent Wave."),
+          h5("1.3. El algoritmo 'Matched Filter' identifica picos en el dominio del tiempo
+             cromatográfico como se describe en",
+             a("[Smith 2006].",
+               href = "https://pubmed.ncbi.nlm.nih.gov/16448051/")),
+          h5("1.4. 'Massifquant' es una detección de picos cromatográfica basada en el
+             filtro Kalman (KF) para datos XC-MS en modo centroide."),
+          h5("1.5. El algoritmo 'Wavelet' realiza la detección de picos en el espectro de
+             inyección directa de espectrometría de masas basado en ondículas."),
+          h5("2. 'Filtrado: puede seleccionar la combinación de filtrados que desee."),
+          h5("3. 'Alineamiento de picos': deberá seleccionar un 'Método' de entre los
+             siguientes:"),
+          h5("3.1. 'Grupos de picos': corrección del tiempo de retención basada en la
+          alineación de características presentes en la mayoría/todas las muestras."),
+          h5("3.2. 'Datos completos': alineación basada en los datos completos de mz-rt."),
+          h5("4. 'Correspondencia': deberá seleccionar un 'Método' de entre los
+             siguientes:"),
+          h5("4.1. 'Densidad de picos': agrupación de picos basada en densidades de picos
+             de dimensión temporal."),
+          h5("4.2. 'Infusión directa': agrupación de picos de alta resolución para datos
+             de MS de espectros únicos (infusión directa)."),
+          h5("4.3. 'Proximidad': agrupación de picos cromatográficos en función de su
+             proximidad en el espacio mz-rt."),
+          h5("5. 'Valores ausentes': deberá seleccionarlo para realizar un rellenado
+             de los valores ausentes. En caso de seleccionarlo deberá seleccionar un
+             'Método' de entre los siguientes:"),
+          h5("5.1. 'm/z': la señal se integra desde el intervalo de tiempo de retención
+             m/z, es decir, desde 'rtmin', 'rtmax', 'mzmin' y 'mzmax'."),
+          h5("5.2. 'Área': el área desde la cual se integra la señal para una
+             característica se define en función de las áreas de picos cromatográficos
+             de la característica. El rango m/z se define por defecto como el cuartil
+             inferior del valor 'mzmin' de los picos cromatográficos al cuartil superior
+             de los valores 'mzmax' de los picos cromatográficos. El intervalo de tiempo
+             de retención para el área se define de forma análoga. A diferencia del
+             enfoque anterior, este método utiliza los picos cromatográficos
+             identificados reales de una característica para definir el área desde la
+             cual se debe integrar la señal."),
+          h5("La NORMALIZACIÓN también presenta diferentes opciones:"),
+          h5("1. 'Valores perdidos': puede 'Imputar' los valores perdidos seleccionando
+             la casilla. Además deberá seleccionar un 'Valor de corte' que indica el
+             porcentaje de valores perdidos permitido en cada grupo, y el 'Método' de
+             imputación"),
+          h5("2. 'Normalización': debe seleccionar un 'Método' de normalización."),
+          h5("3. 'Outliers': puede 'Eliminar' los datos extremos seleccionando la
+             casilla. Además deberá seleccionar un 'Método' de detección y el tipo
+             de medida de la 'Distancia'."),
+          h5("Una vez haya seleccionado los parámetros correspondientes presione ACEPTAR
+             para realizar el procesamiento de los datos."),
+          h5("En las pestañas contiguas podrá ver la tabla con los datos procesados, un
+             resumen estadísitco de los mismos y diferentes gráficos"),
+          br(),
           h3(div(textOutput(NS(id, "success")), align = "center", style = "color:green"))
         ),
         tabPanel(
@@ -147,20 +213,6 @@ norm_MetabRSUI <- function(id) {
             icon = icon("chart-bar"),
             plotOutput(NS(id, "heatmaps")),
             downloadButton(NS(id, "downlheatmaps"),
-                           class = "btn-sm btn-primary")
-          ),
-          tabPanel(
-            "Barplot",
-            icon = icon("chart-bar"),
-            plotOutput(NS(id, "barplot")),
-            downloadButton(NS(id, "downlbarplot"),
-                           class = "btn-sm btn-primary")
-          ),
-          tabPanel(
-            "BPC",
-            icon = icon("chart-bar"),
-            plotOutput(NS(id, "bpc")),
-            downloadButton(NS(id, "downlbpc"),
                            class = "btn-sm btn-primary")
           )
         )
