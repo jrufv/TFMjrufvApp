@@ -12,7 +12,7 @@ norm_MetabSBUI <- function(id) {
       h6("Filtrado"),
       br(),
       checkboxInput(NS(id, "filterMV"),
-                    h6("Valores perdidos")
+                    "Valores perdidos"
       ),
       numericInput(NS(id, "mpmv"),
                    "Umbral",
@@ -132,7 +132,43 @@ norm_MetabSBUI <- function(id) {
         tabPanel(
           "Info",
           icon = icon("info"),
-          p("Instrucciones de uso"),
+          strong(h3("PREPROCESAMIENTO Y NORMALIZACIÓN DE DATOS DE CONTENEDORES DE
+                    ESPECTROS", align = "center")),
+          br(),
+          h5("En esta sección podrá preprocesar y normalizar los datos cargados."),
+          h5("El PREPROCESAMIENTO tiene diferentes opciones de filtrado:"),
+          h5("1. 'Valores perdidos': si selecciona la casilla se filtrarán muestras
+             en función del 'Umbral' de porcentaje de valores perdidos."),
+          h5("2. 'Valores no perdidos': si selecciona la casilla se filtrarán
+             caracteristicas en funcion del 'Umbral' de porcentaje de muestras que
+             contengan valores no perdidos. También deberá seleccionar un método de
+             filtraje de entre los siguientes:"),
+          h5("2.1. 'Control de calidad': entre las muestras de control de calidad. En
+             este caso deberá especificar las 'Etiquetas CC'."),
+          h5("2.2. 'Por clase': entre las muestras de la misma clase."),
+          h5("2.3. 'Todo': en todas las muestras."),
+          h5("3. 'Control de calidad': si selecciona la casilla se filtrarán 
+             características en función del 'Umbral' de la desviación estándar relativa
+             de las muestras de CC."),
+          h5("4. 'Blanco': si selecciona la casilla se filtrarán características de
+             orignen no biológico mediatne muestras en blanco. En este caso debera
+             seleccionar un 'Fold change' mínimo entre muestras analíticas y en blanco,
+             las muestras que hacen de blanco ('Etiquetas blanco'), si se deben eliminar
+             las muestras blanco ('Blancos'), y la 'Fracción' de picos en blanco en las
+             que deben estar presentes."),
+          h5("La NORMALIZACIÓN también presenta diferentes opciones:"),
+          h5("1. 'Valores perdidos': puede 'Imputar' los valores perdidos seleccionando
+             la casilla. Además deberá seleccionar un 'Valor de corte' que indica el
+             porcentaje de valores perdidos permitido en cada grupo, y el 'Método' de
+             imputación"),
+          h5("2. 'Normalización': debe seleccionar un 'Método' de normalización."),
+          h5("3. 'Outliers': puede 'Eliminar' los datos extremos seleccionando la
+             casilla. Además deberá seleccionar un 'Método' de detección y el tipo
+             de medida de la 'Distancia'."),
+          h5("Una vez haya seleccionado los parámetros correspondientes presione ACEPTAR
+             para realizar el procesamiento de los datos."),
+          h5("En las pestañas contiguas podrá ver la tabla con los datos procesados, un
+             resumen estadísitco de los mismos y diferentes gráficos"),
           h3(div(textOutput(NS(id, "success")), align = "center", style = "color:green"))
         ),
         tabPanel(
