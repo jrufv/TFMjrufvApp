@@ -2,13 +2,13 @@
 % Please edit documentation in R/norm_RNASeq.R
 \name{norm_RNASeqUI}
 \alias{norm_RNASeqUI}
-\title{Normalización de datos de RNA-Seq}
+\title{Normalización de datos de RNA-Seq (UI)}
 \usage{
 norm_RNASeqUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Normalización de datos de RNA-Seq
+Normalización de datos de RNA-Seq (UI)
 }
