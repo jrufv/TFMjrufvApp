@@ -1,6 +1,7 @@
-#' Preprocesamiento y normalización de datos de contenedores de espectros de MS
+#' Preprocesamiento y normalización de datos de contenedores de espectros de MS (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -8,124 +9,124 @@ norm_MetabSBUI <- function(id) {
   
   sidebarLayout(
     sidebarPanel(width = 2,
-      h6("PREPROCESAMIENTO"),
-      h6("Filtrado"),
-      br(),
-      checkboxInput(NS(id, "filterMV"),
-                    "Valores perdidos"
-      ),
-      numericInput(NS(id, "mpmv"),
-                   "Umbral",
-                   value = NULL,
-                   min = 0,
-                   max = 1,
-                   step = 0.01
-      ),
-      br(),
-      checkboxInput(NS(id, "filterF"),
-                    "Valores no perdidos"
-      ),
-      numericInput(NS(id, "mf"),
-                   "Umbral",
-                   value = NULL,
-                   min = 0,
-                   max = 1,
-                   step = 0.01
-      ),
-      selectInput(NS(id, "fFmethod"),
-                  "Método",
-                  choices = NULL
-      ),
-      selectInput(NS(id, "QClab"),
-                  "Etiqueta CC",
-                  choices = NULL,
-                  multiple = TRUE
-      ),
-      br(),
-      checkboxInput(NS(id, "filterRSD"),
-                    "Control de calidad"
-      ),
-      selectInput(NS(id, "QClab2"),
-                  "Etiquetas CC",
-                  choices = NULL,
-                  multiple = TRUE
-      ),
-      numericInput(NS(id, "mrsd"),
-                   "Umbral",
-                   value = NULL,
-                   min = 0,
-                   max = 1,
-                   step = 0.01
-      ),
-      br(),
-      checkboxInput(NS(id, "filterB"),
-                    "Blanco"
-      ),
-      numericInput(NS(id, "mfc"),
-                   "Fold change",
-                   value = NULL,
-                   min = 0,
-                   max = 3,
-                   step = 0.1
-      ),
-      selectInput(NS(id, "Blab"),
-                  "Etiquetas Blanco",
-                  choices = NULL,
-                  multiple = TRUE
-      ),
-      selectInput(NS(id, "remB"),
-                  "Blancos",
-                  choices = NULL,
-      ),
-      numericInput(NS(id, "fib"),
-                   "Fracción",
-                   value = NULL,
-                   min = 0,
-                   max = 1,
-                   step = 0.01
-      ),
-      h6("NORMALIZACIÓN"),
-      h6("Valores perdidos"),
-      checkboxInput(NS(id, "impute"),
-                    "Imputar"
-      ),
-      numericInput(NS(id, "coff"),
-                   "Valor de corte",
-                   value = NULL,
-                   min = 0,
-                   max = 100
-      ),
-      selectInput(NS(id, "immethod"),
-                  "Método",
-                  choices = NULL
-      ),
-      h6("Normalización"),
-      selectInput(NS(id, "nomethod"),
-                  "Método",
-                  choices = list("Ninguno " = "none",
-                                 "Autoescalado"= "auto_scaling",
-                                 "Escalado de nivel" = "level_scaling",
-                                 "Escalado logarítmico" = "log_scaling",
-                                 "Transformación logarítmica" = "log_transformation",
-                                 "Gran escalado" = "vast_scaling",
-                                 "Escalado de Pareto" = "log_pareto")
-      ),
-      h6("Outliers"),
-      checkboxInput(NS(id, "routliers"),
-                    "Eliminar"
-      ),
-      selectInput(NS(id, "oumethod"),
-                  "Método",
-                  choices = NULL
-      ),
-      selectInput(NS(id, "ditype"),
-                  "Distancia",
-                  choices = NULL
-      ),
-      actionButton(NS(id, "submit"),
-                   "Aceptar",
-                   class = "btn-sm btn-block btn-success"
-      )
+                 h6("PREPROCESAMIENTO"),
+                 h6("Filtrado"),
+                 br(),
+                 checkboxInput(NS(id, "filterMV"),
+                               "Valores perdidos"
+                 ),
+                 numericInput(NS(id, "mpmv"),
+                              "Umbral",
+                              value = NULL,
+                              min = 0,
+                              max = 1,
+                              step = 0.01
+                 ),
+                 br(),
+                 checkboxInput(NS(id, "filterF"),
+                               "Valores no perdidos"
+                 ),
+                 numericInput(NS(id, "mf"),
+                              "Umbral",
+                              value = NULL,
+                              min = 0,
+                              max = 1,
+                              step = 0.01
+                 ),
+                 selectInput(NS(id, "fFmethod"),
+                             "Método",
+                             choices = NULL
+                 ),
+                 selectInput(NS(id, "QClab"),
+                             "Etiqueta CC",
+                             choices = NULL,
+                             multiple = TRUE
+                 ),
+                 br(),
+                 checkboxInput(NS(id, "filterRSD"),
+                               "Control de calidad"
+                 ),
+                 selectInput(NS(id, "QClab2"),
+                             "Etiquetas CC",
+                             choices = NULL,
+                             multiple = TRUE
+                 ),
+                 numericInput(NS(id, "mrsd"),
+                              "Umbral",
+                              value = NULL,
+                              min = 0,
+                              max = 1,
+                              step = 0.01
+                 ),
+                 br(),
+                 checkboxInput(NS(id, "filterB"),
+                               "Blanco"
+                 ),
+                 numericInput(NS(id, "mfc"),
+                              "Fold change",
+                              value = NULL,
+                              min = 0,
+                              max = 3,
+                              step = 0.1
+                 ),
+                 selectInput(NS(id, "Blab"),
+                             "Etiquetas Blanco",
+                             choices = NULL,
+                             multiple = TRUE
+                 ),
+                 selectInput(NS(id, "remB"),
+                             "Blancos",
+                             choices = NULL,
+                 ),
+                 numericInput(NS(id, "fib"),
+                              "Fracción",
+                              value = NULL,
+                              min = 0,
+                              max = 1,
+                              step = 0.01
+                 ),
+                 h6("NORMALIZACIÓN"),
+                 h6("Valores perdidos"),
+                 checkboxInput(NS(id, "impute"),
+                               "Imputar"
+                 ),
+                 numericInput(NS(id, "coff"),
+                              "Valor de corte",
+                              value = NULL,
+                              min = 0,
+                              max = 100
+                 ),
+                 selectInput(NS(id, "immethod"),
+                             "Método",
+                             choices = NULL
+                 ),
+                 h6("Normalización"),
+                 selectInput(NS(id, "nomethod"),
+                             "Método",
+                             choices = list("Ninguno " = "none",
+                                            "Autoescalado"= "auto_scaling",
+                                            "Escalado de nivel" = "level_scaling",
+                                            "Escalado logarítmico" = "log_scaling",
+                                            "Transformación logarítmica" = "log_transformation",
+                                            "Gran escalado" = "vast_scaling",
+                                            "Escalado de Pareto" = "log_pareto")
+                 ),
+                 h6("Outliers"),
+                 checkboxInput(NS(id, "routliers"),
+                               "Eliminar"
+                 ),
+                 selectInput(NS(id, "oumethod"),
+                             "Método",
+                             choices = NULL
+                 ),
+                 selectInput(NS(id, "ditype"),
+                             "Distancia",
+                             choices = NULL
+                 ),
+                 actionButton(NS(id, "submit"),
+                              "Aceptar",
+                              class = "btn-sm btn-block btn-success"
+                 )
     ),
     mainPanel(
       tabsetPanel(
@@ -224,6 +225,12 @@ norm_MetabSBUI <- function(id) {
     )
   )
 }
+
+#' Preprocesamiento y normalización de datos de contenedores de espectros de MS (Server)
+#' 
+#' @param id Identificador.
+#' @param data Datos cargados en el módulo \code{read_data}.
+#' @export
 
 norm_MetabSBServer <- function(id, data) {
   stopifnot(is.reactive(data))
