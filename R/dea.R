@@ -1,6 +1,7 @@
-#' Análisis de expresión diferencial
+#' Análisis de expresión diferencial (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -128,6 +129,15 @@ deaUI <- function(id) {
     )
   )
 }
+
+#' Análisis de expresión diferencial (Server)
+#'
+#' @param id Identificador.
+#' @param norm_data Datos normalizados en uno de los módulos anteriores.
+#' @param data_type Tipo de datos, seleccionado en la aplicación inicial.
+#' @param pack Paquete de anotaciones introducido en el módulo
+#'   \code{norm_microarray}.
+#' @export
 
 deaServer <- function(id, norm_data, data_type, pack) {
   stopifnot(is.reactive(norm_data))
