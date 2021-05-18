@@ -2,13 +2,13 @@
 % Please edit documentation in R/dea.R
 \name{deaUI}
 \alias{deaUI}
-\title{Análisis de expresión diferencial}
+\title{Análisis de expresión diferencial (UI)}
 \usage{
 deaUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Análisis de expresión diferencial
+Análisis de expresión diferencial (UI)
 }
