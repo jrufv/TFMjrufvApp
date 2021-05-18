@@ -1,6 +1,7 @@
-#' Lectura de datos
+#' Lectura de datos (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -153,6 +154,12 @@ read_dataUI <- function(id) {
     )
   )
 }
+
+#' Lectura de datos (Server)
+#' 
+#' @param id Identificador.
+#' @param data_type Tipo de datos, seleccionado en la aplicación inicial.
+#' @export
 
 read_dataServer <- function(id, data_type) {
   stopifnot(is.reactive(data_type))
