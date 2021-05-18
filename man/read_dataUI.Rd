@@ -2,13 +2,13 @@
 % Please edit documentation in R/read_data.R
 \name{read_dataUI}
 \alias{read_dataUI}
-\title{Lectura de datos}
+\title{Lectura de datos (UI)}
 \usage{
 read_dataUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Lectura de datos
+Lectura de datos (UI)
 }
