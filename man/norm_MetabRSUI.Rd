@@ -2,13 +2,13 @@
 % Please edit documentation in R/norm_MetabRS.R
 \name{norm_MetabRSUI}
 \alias{norm_MetabRSUI}
-\title{Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS}
+\title{Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS (UI)}
 \usage{
 norm_MetabRSUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS
+Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS (UI)
 }
