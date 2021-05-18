@@ -4,6 +4,7 @@
 #' través de diferentes pestañas correspondientes a los pasos a dar para cargar
 #' los datos, preprocesarlos y normalizarlos, realizar análisis estadísticos,
 #' anotar los resultados y obtener análisis de significación biológica.
+#' @export
 #' @import shiny
 
 
