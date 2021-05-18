@@ -24,10 +24,11 @@ La presenta aplicación permite realizar un análisis estadístico de datos ómi
 
 Puede instalar la versión en desarrollo desde GitHub con:
 
-``` r
+```{r, eval=FALSE}
 library(devtools)
-devtools::install_github("jrufv/TFMjrufv")
+devtools::install_github("jrufv/TFMjrufvApp")
 ```
+
 
 ## Ejemplo
 

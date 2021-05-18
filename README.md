@@ -17,7 +17,7 @@ Puede instalar la versión en desarrollo desde GitHub con:
 
 ``` r
 library(devtools)
-devtools::install_github("jrufv/TFMjrufv")
+devtools::install_github("jrufv/TFMjrufvApp")
 ```
 
 ## Ejemplo
