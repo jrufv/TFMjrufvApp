@@ -1,6 +1,7 @@
-#' Normalización de datos de microarray
+#' Normalización de datos de microarray (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -101,6 +102,12 @@ norm_microarrayUI <- function(id) {
     )
   )
 }
+
+#' Normalización de datos de microarray (Server)
+#' 
+#' @param id Identificador.
+#' @param data Datos cargados en el módulo \code{read_data}.
+#' @export
 
 norm_microarrayServer <- function(id, data) {
   stopifnot(is.reactive(data))
