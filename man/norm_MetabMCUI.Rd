@@ -2,13 +2,13 @@
 % Please edit documentation in R/norm_MetabMC.R
 \name{norm_MetabMCUI}
 \alias{norm_MetabMCUI}
-\title{Normalización de datos de concentraciones de metabolitos}
+\title{Normalización de datos de concentraciones de metabolitos (UI)}
 \usage{
 norm_MetabMCUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Normalización de datos de concentraciones de metabolitos
+Normalización de datos de concentraciones de metabolitos (UI)
 }
