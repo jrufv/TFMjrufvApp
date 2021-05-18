@@ -2,13 +2,13 @@
 % Please edit documentation in R/norm_microarray.R
 \name{norm_microarrayUI}
 \alias{norm_microarrayUI}
-\title{Normalización de datos de microarray}
+\title{Normalización de datos de microarray (UI)}
 \usage{
 norm_microarrayUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Normalización de datos de microarray
+Normalización de datos de microarray (UI)
 }
