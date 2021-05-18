@@ -2,13 +2,13 @@
 % Please edit documentation in R/bsa.R
 \name{bsaUI}
 \alias{bsaUI}
-\title{Análisis de significación biológica}
+\title{Análisis de significación biológica (UI)}
 \usage{
 bsaUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Análisis de significación biológica
+Análisis de significación biológica (UI)
 }
