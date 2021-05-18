@@ -1,6 +1,7 @@
-#' Normalización de datos de concentraciones de metabolitos
+#' Normalización de datos de concentraciones de metabolitos (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -130,6 +131,12 @@ norm_MetabMCUI <- function(id) {
   )
   
 }
+
+#' Normalización de datos de concentraciones de metabolitos (Server)
+#' 
+#' @param id Identificador.
+#' @param data Datos cargados en el módulo \code{read_data}.
+#' @export
 
 norm_MetabMCServer <- function(id, data) {
   stopifnot(is.reactive(data))
