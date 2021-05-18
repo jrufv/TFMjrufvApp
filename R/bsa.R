@@ -1,6 +1,7 @@
-#' Análisis de significación biológica
+#' Análisis de significación biológica (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -59,6 +60,11 @@ bsaUI <- function(id) {
     )
   )
 }
+
+#' Análisis de significación biológica (Server)
+#' 
+#' @param id Identificador.
+#' @export
 
 bsaServer <- function(id, data_type, data, org, pvcoff, padmethod, struct) {
   stopifnot(is.reactive(data_type))
