@@ -2,13 +2,13 @@
 % Please edit documentation in R/norm_MetabSB.R
 \name{norm_MetabSBUI}
 \alias{norm_MetabSBUI}
-\title{Preprocesamiento y normalización de datos de contenedores de espectros de MS}
+\title{Preprocesamiento y normalización de datos de contenedores de espectros de MS (UI)}
 \usage{
 norm_MetabSBUI(id)
 }
 \arguments{
-\item{id}{Identificador}
+\item{id}{Identificador.}
 }
 \description{
-Preprocesamiento y normalización de datos de contenedores de espectros de MS
+Preprocesamiento y normalización de datos de contenedores de espectros de MS (UI)
 }
