@@ -1,6 +1,7 @@
-#' Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS
+#' Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS (UI)
 #' 
-#' @param id Identificador
+#' @param id Identificador.
+#' @export
 #' @import shiny
 #' @import htmltools
 
@@ -220,6 +221,12 @@ norm_MetabRSUI <- function(id) {
     )
   )
 }
+
+#' Preprocesamiento y normalización de datos de espectros brutos de GC/LC-MS (server)
+#' 
+#' @param id Identificador.
+#' @param data Datos cargados en el módulo \code{read_data}.
+#' @export
 
 norm_MetabRSServer <- function(id, data) {
   stopifnot(is.reactive(data))
