@@ -149,7 +149,10 @@ read_dataUI <- function(id) {
             downloadButton(NS(id, "downlbpc"),
                            class = "btn-sm btn-primary")
           )
-        )
+        ),
+        tabPanel("Prueba",
+                 verbatimTextOutput(NS(id,"prueba")),
+                 verbatimTextOutput(NS(id,"prueba2")))
       )
     )
   )
@@ -276,8 +279,20 @@ read_dataServer <- function(id, data_type) {
                         choices = choices)
     })
     
+    res <- reactive({
+      if(input$file_type == ".CEL") {
+        6
+      } else if(input$file_type == ".mzML") {
+        7
+      } else if(input$file_type == ".mzXML") {
+        8
+      } else if(input$file_type == ".NetCDF" | input$file_type == ".mzData") {
+        9
+      }
+    })
+    
     files_path <- reactive({
-      substr(input$file$datapath[1], 1, 40)
+      substr(input$file$datapath[1], 1, (nchar(input$file$datapath[1]) - res()))
     })
     
     readata <- reactive({
@@ -548,6 +563,9 @@ read_dataServer <- function(id, data_type) {
         grDevices::dev.off()
       }
     )
+    
+    output$prueba <- renderPrint(input$file$datapath[1])
+    output$prueba2 <- renderPrint(files_path())
     
     data
   })
