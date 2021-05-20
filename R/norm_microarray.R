@@ -52,7 +52,9 @@ norm_microarrayUI <- function(id) {
         tabPanel(
           "Data",
           icon = icon("table"),
-          DT::DTOutput(NS(id, "Data"))
+          DT::DTOutput(NS(id, "Data")),
+          downloadButton(NS(id, "downlData"),
+                         class = "btn-sm btn-primary")
         ),
         tabPanel(
           "Summary",
@@ -114,16 +116,14 @@ norm_microarrayServer <- function(id, data) {
   
   moduleServer(id, function(input, output, session) {
     
-    reactive({
-      TFMjrufv::ins_pack(annot_pack = input$annot_pack)
-    })
-    
     norm_data <- eventReactive(input$submit, {
       id <- showNotification("Procesing data...",
                              duration = NULL,
                              closeButton = FALSE,
                              type = "message")
       on.exit(removeNotification(id), add = TRUE)
+      
+      TFMjrufv::ins_pack(annot_pack = input$annot_pack)
       
       TFMjrufv::prep_norm_microarray(data(),
                                      varFilter = input$varFilter,
@@ -215,6 +215,15 @@ norm_microarrayServer <- function(id, data) {
       
       TFMjrufv::plotTFM(norm_data(), plot = "BPC")
     }, res = 96)
+    
+    output$downlData <- downloadHandler(
+      filename = function() {
+        "norm_data.csv"
+      },
+      content = function(file) {
+        write.csv(Biobase::exprs(norm_data()), file)
+      }
+    )
     
     output$downlpca <- downloadHandler(
       filename = function() {
