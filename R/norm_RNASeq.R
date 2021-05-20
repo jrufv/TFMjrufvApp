@@ -43,7 +43,9 @@ norm_RNASeqUI <- function(id) {
           tabPanel(
             "Data",
             icon = icon("table"),
-            DT::DTOutput(NS(id, "Data"))
+            DT::DTOutput(NS(id, "Data")),
+            downloadButton(NS(id, "downlData"),
+                           class = "btn-sm btn-primary")
           ),
           tabPanel(
             "pData",
@@ -206,6 +208,15 @@ norm_RNASeqServer <- function(id, data) {
       
       TFMjrufv::plotTFM(norm_data(), plot = "heatmapS")
     }, res = 96)
+    
+    output$downlData <- downloadHandler(
+      filename = function() {
+        "norm_data.csv"
+      },
+      content = function(file) {
+        write.csv(Biobase::exprs(norm_data()), file)
+      }
+    )
     
     output$downlpca <- downloadHandler(
       filename = function() {
