@@ -126,8 +126,7 @@ deaUI <- function(id) {
           "Test Results",
           icon = icon("table"),
           DT::DTOutput(NS(id, "testres"))
-        ),
-        tabPanel("Prueba", verbatimTextOutput(NS(id, "prueba")))
+        )
       )
     )
   )
@@ -307,8 +306,6 @@ deaServer <- function(id, norm_data, data_type, pack) {
         write.csv(annot_dea_data()[[pos()]], file)
       }
     )
-    
-    output$prueba <- renderPrint(Biobase::pData(norm_data()))
     
     datatype <- reactive(data_type())
     
