@@ -149,10 +149,7 @@ read_dataUI <- function(id) {
             downloadButton(NS(id, "downlbpc"),
                            class = "btn-sm btn-primary")
           )
-        ),
-        tabPanel("Prueba",
-                 verbatimTextOutput(NS(id,"prueba")),
-                 verbatimTextOutput(NS(id,"prueba2")))
+        )
       )
     )
   )
@@ -563,9 +560,6 @@ read_dataServer <- function(id, data_type) {
         grDevices::dev.off()
       }
     )
-    
-    output$prueba <- renderPrint(input$file$datapath[1])
-    output$prueba2 <- renderPrint(files_path())
     
     data
   })
