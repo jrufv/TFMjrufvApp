@@ -113,7 +113,9 @@ deaUI <- function(id) {
                       choices = NULL,
                       width = "20%"
           ),
-          DT::DTOutput(NS(id, "toptab"))
+          DT::DTOutput(NS(id, "toptab")),
+          downloadButton(NS(id, "downltoptab"),
+                         class = "btn-sm btn-primary")
         ),
         tabPanel(
           "Expression",
@@ -124,7 +126,8 @@ deaUI <- function(id) {
           "Test Results",
           icon = icon("table"),
           DT::DTOutput(NS(id, "testres"))
-        )
+        ),
+        tabPanel("Prueba", verbatimTextOutput(NS(id, "prueba")))
       )
     )
   )
@@ -270,6 +273,11 @@ deaServer <- function(id, norm_data, data_type, pack) {
       }
     })
     
+    pos <- reactive({
+      logvec <- structure()$Etiqueta == input$num
+      pos <- which(logvec)
+    })
+    
     output$success <- renderText({
       req(annot_dea_data())
       "El análisis de expresión diferencial se ha completado!"
@@ -277,9 +285,7 @@ deaServer <- function(id, norm_data, data_type, pack) {
     
     output$toptab <- DT::renderDT({
       req(input$submit)
-      logvec <- structure()$Etiqueta == input$num
-      pos <- which(logvec)
-      annot_dea_data()[[pos]] %>%
+      annot_dea_data()[[pos()]] %>%
         dplyr::mutate_if(is.numeric, round, digits = 5)
     })
     
@@ -292,6 +298,17 @@ deaServer <- function(id, norm_data, data_type, pack) {
       req(input$submit)
       annot_dea_data()$TestResMat
     })
+    
+    output$downltoptab <- downloadHandler(
+      filename = function() {
+        paste0("toptab_", input$num, ".csv")
+      },
+      content = function(file) {
+        write.csv(annot_dea_data()[[pos()]], file)
+      }
+    )
+    
+    output$prueba <- renderPrint(Biobase::pData(norm_data()))
     
     datatype <- reactive(data_type())
     
