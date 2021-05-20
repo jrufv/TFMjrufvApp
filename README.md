@@ -26,6 +26,8 @@ Puede acceder a la aplicación web con el siguiente código:
 
 ``` r
 library(TFMjrufvApp)
-devtools::load_all()
 TFMjrufvApp()
 ```
+
+Tiene disponibles datos de prueba en la carpeta del paquete, dentro de
+`inst/extdata`.
