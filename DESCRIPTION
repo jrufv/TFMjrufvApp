@@ -32,4 +32,5 @@ Imports:
     SummarizedExperiment,
     methods,
     BiocGenerics,
-    enrichplot
+    enrichplot,
+    ggnewscale
