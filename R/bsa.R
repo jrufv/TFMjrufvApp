@@ -47,7 +47,9 @@ bsaUI <- function(id) {
         tabPanel(
           "Resultados",
           icon = icon("table"),
-          DT::DTOutput(NS(id, "results"))
+          DT::DTOutput(NS(id, "results")),
+          downloadButton(NS(id, "downlresults"),
+                         class = "btn-sm btn-primary")
         ),
         tabPanel(
           "Gráfico",
@@ -159,6 +161,15 @@ bsaServer <- function(id, data_type, data, org, pvcoff, padmethod, struct) {
       enrichplot::cnetplot(bsa_data()[[pos()]], categorySize = "geneNum",
                            schowCategory = input$category, vertex.label.cex = 0.75)
     }, res = 96)
+    
+    output$downlresults <- downloadHandler(
+      filename = function() {
+        paste0("bsa_", input$num, ".csv")
+      },
+      content = function(file) {
+        write.csv(table(), file)
+      }
+    )
     
     output$downlcne <- downloadHandler(
       filename = function() {
