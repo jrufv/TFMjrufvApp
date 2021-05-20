@@ -175,7 +175,9 @@ norm_MetabSBUI <- function(id) {
         tabPanel(
           "Data",
           icon = icon("table"),
-          DT::DTOutput(NS(id, "Data"))
+          DT::DTOutput(NS(id, "Data")),
+          downloadButton(NS(id, "downlData"),
+                         class = "btn-sm btn-primary")
         ),
         tabPanel(
           "Summary",
@@ -307,7 +309,7 @@ norm_MetabSBServer <- function(id, data) {
         updateNumericInput(inputId = "coff",
                            value = 20)
         choices = list("Cero" = "none",
-                       "Media/2" = "half-min",
+                       "Media/2" = "half_min",
                        "Mediana" = "median",
                        "Media" = "mean",
                        "Mínimo" = "min",
@@ -445,6 +447,15 @@ norm_MetabSBServer <- function(id, data) {
       
       TFMjrufv::plotTFM(norm_data(), plot = "heatmapS")
     }, res = 96)
+    
+    output$downlData <- downloadHandler(
+      filename = function() {
+        "norm_data.csv"
+      },
+      content = function(file) {
+        write.csv(Biobase::exprs(norm_data()), file)
+      }
+    )
     
     output$downlpca <- downloadHandler(
       filename = function() {
