@@ -154,8 +154,7 @@ norm_MetabMCServer <- function(id, data) {
                        "Mediana" = "median",
                        "Media" = "mean",
                        "Mínimo" = "min",
-                       "KNN" = "knn",
-                       "Random Forest" = "rf")
+                       "KNN" = "knn")
         updateSelectInput(inputId = "immethod",
                           choices = choices)
       }
